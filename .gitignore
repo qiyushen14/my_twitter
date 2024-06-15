@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 bionic64.box
+.pycharm_helpers/
 
 # C extensions
 *.so
