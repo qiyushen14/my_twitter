@@ -3,10 +3,16 @@ from rest_framework import serializers
 from rest_framework import exceptions
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email']
+
+
+class UserSerializerForTweet(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
 
 class LoginSerializer(serializers.Serializer):
@@ -16,7 +22,7 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         if not User.objects.filter(username=data['username'].lower()).exists():
             raise exceptions.ValidationError({
-                'username':'User does not exist.'
+                'username': 'User does not exist.'
             })
         return data
 
@@ -54,4 +60,3 @@ class SignupSerializer(serializers.ModelSerializer):
 
         )
         return user
-
