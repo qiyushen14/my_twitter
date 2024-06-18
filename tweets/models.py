@@ -11,6 +11,16 @@ class Tweet(models.Model):
                              help_text='who posts this tweet', )
     content = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        #composite index
+        #create a new datasheet:
+        # (user1,created_at1,id1)
+        # (user1,created_at2,id2)
+        # (user2,created_at3,id3)
+        # (user3,created_at4,id4)
+
+        index_together = (('user', 'created_at'),)
+        ordering =('user','-created_at')
 
     @property
     def hours_to_now(self):
